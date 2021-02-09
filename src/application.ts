@@ -10,7 +10,9 @@ import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {ProvidersBindings} from './keys';
 import {BcryptProvider} from './providers/implementations/BcryptProvider';
+import {JwtProvider} from './providers/implementations/JwtProvider';
 import {MySequence} from './sequence';
+import {AuthUserUseCase} from './useCases/authUser/AuthUserUseCase';
 import {CreateUserUseCase} from './useCases/createUser/CreateUserUseCase';
 
 export {ApplicationConfig};
@@ -50,7 +52,9 @@ export class TryLoopbackApplication extends BootMixin(
   setupBinding(): void {
     //UseCases
     this.bind('useCase.user.create').toClass(CreateUserUseCase);
+    this.bind('useCase.user.auth').toClass(AuthUserUseCase);
     //Providers
     this.bind(ProvidersBindings.ENCRYPT_PROVIDER).toClass(BcryptProvider);
+    this.bind(ProvidersBindings.TOKEN_PROVIDER).toClass(JwtProvider);
   }
 }
