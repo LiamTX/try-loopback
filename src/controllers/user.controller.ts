@@ -21,7 +21,10 @@ export class UserController {
   ) { }
 
 
-  /* Recebe um json :
+  /*
+    --Cadastra um novo usuario--
+
+    Recebe um json :
     {
       nickname*: string,
       password*: string
@@ -47,7 +50,10 @@ export class UserController {
     }
   }
 
-  /* Recebe um json :
+  /*
+    --Efetua a autenticação do usuario--
+
+    Recebe um json :
     {
       nickname*: string,
       password*: string

@@ -25,6 +25,8 @@ export class CarController {
   ) { }
 
   /*
+    --Cadastra um novo carro--
+
     Recebe um json :
     {
       brand*: string,
@@ -64,6 +66,8 @@ export class CarController {
   }
 
   /*
+    --Lista todos os carros--
+
     Retorna um Array com:
     {
       "CarJsonSchema"
@@ -84,6 +88,16 @@ export class CarController {
     }
   }
 
+
+  /*
+    --Deleta um carro--
+
+    Recebe um id nos Params da Requisição.
+    É necessario enviar um "Authorization" junto ao header da requisição com:
+      Bearer "token recebido ao efetuar a autenticação"*
+
+    Retorna "204"
+  */
   @del('/api/cars/{id}/del')
   @response(204, {
     description: 'Car deleted'
