@@ -1,6 +1,20 @@
-import {RequestBodyObject} from '@loopback/rest';
+import {RequestBodyObject, ResponseObject} from '@loopback/rest';
 
-export const CredentialsRequestBody: RequestBodyObject = {
+export const CredentialResponseBody: ResponseObject = {
+  description: 'User authenticated',
+  content: {
+    schema: {
+      type: 'object',
+      properties: {
+        token: {
+          type: 'string'
+        }
+      }
+    }
+  }
+}
+
+export const CredentialRequestBody: RequestBodyObject = {
   description: 'The input of login function',
   required: true,
   content: {
@@ -9,7 +23,7 @@ export const CredentialsRequestBody: RequestBodyObject = {
         type: 'object',
         required: ['nickname', 'password'],
         properties: {
-          nickname: {
+          email: {
             type: 'string',
           },
           password: {
@@ -20,4 +34,4 @@ export const CredentialsRequestBody: RequestBodyObject = {
       }
     },
   },
-};
+}

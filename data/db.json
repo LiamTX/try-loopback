@@ -1,0 +1,10 @@
+{
+  "ids": {
+    "User": 2
+  },
+  "models": {
+    "User": {
+      "1": "{\"nickname\":\"jovirone\",\"password\":\"$2b$12$tX0EHXi2bhuIiM4OK7WPi.zyGbYgJ7ibi6jn1JGLH.mj8uPDlxR6m\",\"id\":1}"
+    }
+  }
+}

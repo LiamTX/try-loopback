@@ -1,3 +1,5 @@
 export interface ITokenProvider {
-  generate(data: unknown): Promise<string>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  generate(data: any): Promise<string>;
+  verify(data: string): Promise<unknown>;
 }

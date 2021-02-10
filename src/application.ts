@@ -1,3 +1,4 @@
+import {AuthenticationComponent, registerAuthenticationStrategy} from '@loopback/authentication';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
@@ -8,10 +9,12 @@ import {
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
-import {ProvidersBindings} from './keys';
+import {JwtStrategy} from './authentication-strategies/jwt-strategy';
+import {ProvidersBindings, ServicesBindings, UseCasesBindings} from './keys';
 import {BcryptProvider} from './providers/implementations/BcryptProvider';
 import {JwtProvider} from './providers/implementations/JwtProvider';
 import {MySequence} from './sequence';
+import {MyUserService} from './services/user-service';
 import {AuthUserUseCase} from './useCases/authUser/AuthUserUseCase';
 import {CreateUserUseCase} from './useCases/createUser/CreateUserUseCase';
 
@@ -23,7 +26,10 @@ export class TryLoopbackApplication extends BootMixin(
   constructor(options: ApplicationConfig = {}) {
     super(options);
 
-    this.setupBinding();
+    this.setBindings();
+
+    this.component(AuthenticationComponent)
+    registerAuthenticationStrategy(this, JwtStrategy);
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -49,12 +55,14 @@ export class TryLoopbackApplication extends BootMixin(
     };
   }
 
-  setupBinding(): void {
+  setBindings(): void {
     //UseCases
-    this.bind('useCase.user.create').toClass(CreateUserUseCase);
-    this.bind('useCase.user.auth').toClass(AuthUserUseCase);
+    this.bind(UseCasesBindings.CREATE_USER).toClass(CreateUserUseCase);
+    this.bind(UseCasesBindings.AUTH_USER).toClass(AuthUserUseCase);
     //Providers
-    this.bind(ProvidersBindings.ENCRYPT_PROVIDER).toClass(BcryptProvider);
+    this.bind(ProvidersBindings.HASHER_PROVIDER).toClass(BcryptProvider);
     this.bind(ProvidersBindings.TOKEN_PROVIDER).toClass(JwtProvider);
+    //Services
+    this.bind(ServicesBindings.USER_SERVICE).toClass(MyUserService);
   }
 }

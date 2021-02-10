@@ -1,1 +1,1 @@
-export * from './my-sql-data.datasource';
+export * from './local-db.datasource';
