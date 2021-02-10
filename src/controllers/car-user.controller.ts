@@ -1,14 +1,13 @@
 import {
-  repository,
+  repository
 } from '@loopback/repository';
 import {
-  param,
   get,
-  getModelSchemaRef,
+  getModelSchemaRef, param
 } from '@loopback/rest';
 import {
   Car,
-  User,
+  User
 } from '../models';
 import {CarRepository} from '../repositories';
 
@@ -18,7 +17,7 @@ export class CarUserController {
     public carRepository: CarRepository,
   ) { }
 
-  @get('/cars/{id}/user', {
+  @get('/api/cars/{id}/user', {
     responses: {
       '200': {
         description: 'User belonging to Car',

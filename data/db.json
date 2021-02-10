@@ -1,10 +1,15 @@
 {
   "ids": {
-    "User": 2
+    "User": 2,
+    "Car": 3
   },
   "models": {
     "User": {
       "1": "{\"nickname\":\"jovirone\",\"password\":\"$2b$12$tX0EHXi2bhuIiM4OK7WPi.zyGbYgJ7ibi6jn1JGLH.mj8uPDlxR6m\",\"id\":1}"
+    },
+    "Car": {
+      "1": "{\"brand\":\"any_brand\",\"model\":\"any_model\",\"fab_date\":\"2011-07-14T18:43:37.000Z\",\"price\":2.409,\"color\":\"any_color\",\"userId\":1,\"id\":1}",
+      "2": "{\"brand\":\"any_brand 2\",\"model\":\"any_model 2\",\"fab_date\":\"2011-07-14T18:43:37.000Z\",\"price\":2.409,\"color\":\"any_color 2\",\"userId\":1,\"id\":2}"
     }
   }
 }

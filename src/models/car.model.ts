@@ -1,4 +1,4 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {User} from './user.model';
 
 @model()
@@ -26,6 +26,7 @@ export class Car extends Entity {
     type: 'date',
     required: true,
   })
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   fab_date: string;
 
   @property({

@@ -23,7 +23,7 @@ export class AuthUserUseCase implements IAuthUserUseCase {
   async execute(data: IAuthUserDTO): Promise<{token: string}> {
     const user = await this.userService.verifyCredentials(data);
 
-    const token = await this.tokenProvider.generate(user.nickname);
+    const token = await this.tokenProvider.generate(user.id);
 
     return Promise.resolve({token});
   }

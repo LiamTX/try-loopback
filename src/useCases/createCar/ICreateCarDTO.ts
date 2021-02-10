@@ -5,4 +5,5 @@ export interface ICreateCarDTO {
   fab_date: string;
   price: number;
   color: string;
+  userId: number;
 }

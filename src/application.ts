@@ -14,8 +14,10 @@ import {ProvidersBindings, ServicesBindings, UseCasesBindings} from './keys';
 import {BcryptProvider} from './providers/implementations/BcryptProvider';
 import {JwtProvider} from './providers/implementations/JwtProvider';
 import {MySequence} from './sequence';
+import {MyCarService} from './services/car-service';
 import {MyUserService} from './services/user-service';
 import {AuthUserUseCase} from './useCases/authUser/AuthUserUseCase';
+import {CreateCarUseCase} from './useCases/createCar/CreateCarUseCase';
 import {CreateUserUseCase} from './useCases/createUser/CreateUserUseCase';
 
 export {ApplicationConfig};
@@ -59,10 +61,12 @@ export class TryLoopbackApplication extends BootMixin(
     //UseCases
     this.bind(UseCasesBindings.CREATE_USER).toClass(CreateUserUseCase);
     this.bind(UseCasesBindings.AUTH_USER).toClass(AuthUserUseCase);
+    this.bind(UseCasesBindings.CREATE_CAR).toClass(CreateCarUseCase);
     //Providers
     this.bind(ProvidersBindings.HASHER_PROVIDER).toClass(BcryptProvider);
     this.bind(ProvidersBindings.TOKEN_PROVIDER).toClass(JwtProvider);
     //Services
     this.bind(ServicesBindings.USER_SERVICE).toClass(MyUserService);
+    this.bind(ServicesBindings.CAR_SERVICE).toClass(MyCarService);
   }
 }
