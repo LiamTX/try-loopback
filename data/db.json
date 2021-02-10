@@ -10,7 +10,7 @@
     },
     "Car": {
       "1": "{\"brand\":\"any_brand\",\"model\":\"any_model\",\"fab_date\":\"2011-07-14T18:43:37.000Z\",\"price\":2.409,\"color\":\"any_color\",\"userId\":1,\"id\":1}",
-      "3": "{\"brand\":\"any_brand 2\",\"model\":\"any_model 2\",\"fab_date\":\"2011-07-14T18:43:37.000Z\",\"price\":2.409,\"color\":\"any_color 2\",\"userId\":2,\"id\":3}"
+      "3": "{\"brand\":\"brand 2\",\"model\":\"model 2\",\"fab_date\":\"2011-07-14T18:43:37.000Z\",\"price\":2.409,\"color\":\"color 2\",\"userId\":2,\"id\":3}"
     }
   }
 }

@@ -20,6 +20,7 @@ import {AuthUserUseCase} from './useCases/authUser/AuthUserUseCase';
 import {CreateCarUseCase} from './useCases/createCar/CreateCarUseCase';
 import {CreateUserUseCase} from './useCases/createUser/CreateUserUseCase';
 import {DelCarUseCase} from './useCases/delCar/DelCarUseCase';
+import {UpdateCarUseCase} from './useCases/updateCar/UpdateCarUseCase';
 
 export {ApplicationConfig};
 
@@ -64,6 +65,7 @@ export class TryLoopbackApplication extends BootMixin(
     this.bind(UseCasesBindings.AUTH_USER).toClass(AuthUserUseCase);
     this.bind(UseCasesBindings.CREATE_CAR).toClass(CreateCarUseCase);
     this.bind(UseCasesBindings.DEL_CAR).toClass(DelCarUseCase);
+    this.bind(UseCasesBindings.PUT_CAR).toClass(UpdateCarUseCase);
     //Providers
     this.bind(ProvidersBindings.HASHER_PROVIDER).toClass(BcryptProvider);
     this.bind(ProvidersBindings.TOKEN_PROVIDER).toClass(JwtProvider);

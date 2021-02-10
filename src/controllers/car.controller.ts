@@ -3,13 +3,14 @@
 import {authenticate, AuthenticationBindings} from '@loopback/authentication';
 import {inject} from '@loopback/core';
 import {repository} from '@loopback/repository';
-import {del, get, getJsonSchemaRef, getModelSchemaRef, param, post, requestBody, response} from '@loopback/rest';
+import {del, get, getJsonSchemaRef, getModelSchemaRef, param, patch, post, requestBody, response} from '@loopback/rest';
 import {UserProfile} from '@loopback/security';
 import {UseCasesBindings} from '../keys';
 import {Car} from '../models';
 import {CarRepository} from '../repositories';
 import {CreateCarUseCase} from '../useCases/createCar/CreateCarUseCase';
 import {DelCarUseCase} from '../useCases/delCar/DelCarUseCase';
+import {UpdateCarUseCase} from '../useCases/updateCar/UpdateCarUseCase';
 
 // import {inject} from '@loopback/core';
 
@@ -20,6 +21,8 @@ export class CarController {
     private createCarUseCase: CreateCarUseCase,
     @inject(UseCasesBindings.DEL_CAR)
     private delCarUseCase: DelCarUseCase,
+    @inject(UseCasesBindings.PUT_CAR)
+    private patchCarUseCase: UpdateCarUseCase,
     @repository(CarRepository)
     private carRepository: CarRepository,
   ) { }
@@ -92,7 +95,7 @@ export class CarController {
   /*
     --Deleta um carro--
 
-    Recebe um id nos Params da Requisição.
+    Recebe um id nos Params da Requisição*.
     É necessario enviar um "Authorization" junto ao header da requisição com:
       Bearer "token recebido ao efetuar a autenticação"*
 
@@ -110,6 +113,41 @@ export class CarController {
   ) {
     try {
       return await this.delCarUseCase.execute({id: id, userId: currentUser.id});
+    } catch (error) {
+      return {message: error.message || 'Internal error'};
+    }
+  }
+
+  /*
+    Recebe um id nos Params da Requisição.
+
+    Recebe um json:
+    {
+      brand*: string,
+      model*: string,
+      fab_date*: date - ex. "2011-07-14T19:43:37+0100",
+      price*: number,
+      color*: string
+    }
+
+    É necessario enviar um "Authorization" junto ao header da requisição com:
+      Bearer "token recebido ao efetuar a autenticação"*
+
+    Retorna "204"
+  */
+  @patch('/api/cars/{id}/patch')
+  @response(204, {
+    description: 'Patch success'
+  })
+  @authenticate('jwt')
+  async updateById(
+    @inject(AuthenticationBindings.CURRENT_USER)
+    currentUser: UserProfile,
+    @param.path.number('id') id: number,
+    @requestBody() car: Car
+  ) {
+    try {
+      return await this.patchCarUseCase.execute({id: id, userId: currentUser.id, car: car});
     } catch (error) {
       return {message: error.message || 'Internal error'};
     }
