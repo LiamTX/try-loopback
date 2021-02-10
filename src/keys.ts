@@ -8,6 +8,7 @@ import {IMyCarService} from './services/car-service';
 import {IAuthUserUseCase} from './useCases/authUser/AuthUserUseCase';
 import {ICreateCarUseCase} from './useCases/createCar/CreateCarUseCase';
 import {ICreateUserUseCase} from './useCases/createUser/CreateUserUseCase';
+import {IDelCarUseCase} from './useCases/delCar/DelCarUseCase';
 
 export namespace UseCasesBindings {
   export const CREATE_USER = BindingKey.create<ICreateUserUseCase>(
@@ -18,6 +19,9 @@ export namespace UseCasesBindings {
   );
   export const CREATE_CAR = BindingKey.create<ICreateCarUseCase>(
     'useCase.car.create'
+  );
+  export const DEL_CAR = BindingKey.create<IDelCarUseCase>(
+    'useCase.car.del'
   )
 }
 

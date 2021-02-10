@@ -1,9 +1,7 @@
 // Uncomment these imports to begin using these cool features!
 
-import {authenticate, AuthenticationBindings} from '@loopback/authentication';
 import {inject} from '@loopback/core';
-import {get, getJsonSchemaRef, post, requestBody, response} from '@loopback/rest';
-import {UserProfile} from '@loopback/security';
+import {getJsonSchemaRef, post, requestBody, response} from '@loopback/rest';
 import {UseCasesBindings} from '../keys';
 import {User} from '../models';
 import {Credentials} from '../repositories';
@@ -22,6 +20,18 @@ export class UserController {
     private authUserUseCase: AuthUserUseCase,
   ) { }
 
+
+  /* Recebe um json :
+    {
+      nickname*: string,
+      password*: string
+    }
+
+    Retorna um json:
+    {
+      "UserSchema"
+    }
+  */
   @post('/api/users/create')
   @response(200, {
     description: 'User Created',
@@ -37,6 +47,17 @@ export class UserController {
     }
   }
 
+  /* Recebe um json :
+    {
+      nickname*: string,
+      password*: string
+    }
+
+    Retorna um json :
+    {
+      token: ....
+    }
+  */
   @post('/api/users/auth')
   @response(200, CredentialResponseBody)
   async login(@requestBody(CredentialRequestBody) credentials: Credentials) {
@@ -45,18 +66,5 @@ export class UserController {
     } catch (error) {
       return {message: error.message || 'Internal error'};
     }
-  }
-
-  @get('/api/users/me')
-  // @response(200, {
-  //   description: 'My profile',
-  //   content: getJsonSchemaRef(User)
-  // })
-  @authenticate('jwt')
-  async me(
-    @inject(AuthenticationBindings.CURRENT_USER)
-    currentUser: UserProfile
-  ) {
-    return Promise.resolve(currentUser);
   }
 }
