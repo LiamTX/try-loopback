@@ -1,10 +1,12 @@
 // Uncomment these imports to begin using these cool features!
 
 import {inject} from '@loopback/core';
-import {getJsonSchemaRef, post, requestBody, response} from '@loopback/rest';
+import {repository} from '@loopback/repository';
+import {get, getJsonSchemaRef, getModelSchemaRef, post, requestBody, response} from '@loopback/rest';
+import {PermissionKeys} from '../authorization/permission-keys';
 import {UseCasesBindings} from '../keys';
 import {User} from '../models';
-import {Credentials} from '../repositories';
+import {Credentials, UserRepository} from '../repositories';
 import {AuthUserUseCase} from '../useCases/authUser/AuthUserUseCase';
 import {CreateUserUseCase} from '../useCases/createUser/CreateUserUseCase';
 import {CredentialRequestBody, CredentialResponseBody} from './specs/user.controller.spec';
@@ -18,8 +20,24 @@ export class UserController {
     private createUserUseCase: CreateUserUseCase,
     @inject(UseCasesBindings.AUTH_USER)
     private authUserUseCase: AuthUserUseCase,
+    @repository(UserRepository)
+    private userRepository: UserRepository,
   ) { }
 
+  @get('/api/users/all')
+  @response(200, {
+    description: 'All Users',
+    content: {
+      schema: getModelSchemaRef(User)
+    }
+  })
+  async findAll() {
+    try {
+      return await this.userRepository.find();
+    } catch (error) {
+      return {message: error.message || 'Internal error'};
+    }
+  }
 
   /*
     --Cadastra um novo usuario--
@@ -44,6 +62,7 @@ export class UserController {
   })
   async create(@requestBody() user: User) {
     try {
+      user.permissions = [PermissionKeys.AccessAuthFeature];
       return await this.createUserUseCase.execute(user);
     } catch (error) {
       return {message: error.message || 'Internal error'};

@@ -32,6 +32,7 @@
     "rebuild": "npm run clean && npm run build",
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
+    "dev": "tsc-watch -b --onSuccess \"npm start\"",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
   },
   "repository": {
@@ -57,6 +58,7 @@
     "bcrypt": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
+    "nodemon": "^2.0.7",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
@@ -68,6 +70,8 @@
     "@types/node": "^10.17.51",
     "eslint": "^7.18.0",
     "source-map-support": "^0.5.19",
+    "ts-node-dev": "^1.1.1",
+    "tsc-watch": "^4.2.9",
     "typescript": "~4.1.3"
   }
 }

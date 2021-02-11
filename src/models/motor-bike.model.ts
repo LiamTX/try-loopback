@@ -1,7 +1,7 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
-export class User extends Entity {
+export class MotorBike extends Entity {
   @property({
     type: 'number',
     id: true,
@@ -13,27 +13,28 @@ export class User extends Entity {
     type: 'string',
     required: true,
   })
-  nickname: string;
+  brand: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  password: string;
+  model: string;
 
   @property({
-    type: 'array',
-    itemType: 'string'
+    type: 'number',
+    required: true,
   })
-  permissions: string[];
+  price: number;
 
-  constructor(data?: Partial<User>) {
+
+  constructor(data?: Partial<MotorBike>) {
     super(data);
   }
 }
 
-export interface UserRelations {
+export interface MotorBikeRelations {
   // describe navigational properties here
 }
 
-export type UserWithRelations = User & UserRelations;
+export type MotorBikeWithRelations = MotorBike & MotorBikeRelations;
